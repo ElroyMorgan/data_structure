@@ -15,12 +15,14 @@ A Rust library implementing common data structures and algorithms.
 ## Usage
 
 Add to your `Cargo.toml`:
+
 ```toml
 [dependencies]
 data_structure = "0.1.5"
 ```
 
 Example usage:
+
 ```rust
 use data_structure::linear::string::String;
 
