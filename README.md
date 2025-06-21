@@ -18,7 +18,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-data_structure = "0.1.5"
+data_structure = "0.1.6"
 ```
 
 Example usage:
