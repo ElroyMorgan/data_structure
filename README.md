@@ -26,7 +26,7 @@ Example usage:
 
 ```rust
 use data_structure::linear::string::String;
-use data_structure::linear::graph::AMGraph;
+use data_structure::non_linear::graph::AMGraph;
 
 fn main() {
     // String example

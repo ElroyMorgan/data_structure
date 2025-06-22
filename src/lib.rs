@@ -1,6 +1,6 @@
 pub mod linear;
 pub mod sorting;
-
+pub mod non_linear;
 #[cfg(test)]
 mod tests {
     use crate::linear::array::ArrayList;
