@@ -12,3 +12,13 @@ Cargo.lock
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# 忽略 IDE 临时文件
+*.swp
+*.swo
+
+# 忽略编辑器自动保存的临时文件
+*~
+
+# 忽略 VS Code 生成的临时文件
+.vscode/

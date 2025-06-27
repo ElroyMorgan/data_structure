@@ -1,45 +1,52 @@
-# Data Structure Library
+# 数据结构库
 
-A Rust library implementing common data structures and algorithms.
+一个用 Rust 实现的常用数据结构和算法库。
 
-## Features
+## 功能特性
 
-- Linear data structures:
-  - Array List
-  - Linked List
-  - Stack
-  - String (with BF pattern matching)
-  - Graph (Adjacency Matrix)
-- Sorting algorithms:
-  - Quick sort
+- 线性数据结构:
+  - 数组列表
+  - 链表
+  - 栈
+  - 字符串（包含 BF 模式匹配）
+  - 图（邻接矩阵）
+- 排序算法:
+  - 快速排序
 
-## Usage
+## Localization 支持
 
-Add to your `Cargo.toml`:
+我们提供多语言版本以支持全球开发者:
+
+- 中文 (zh-CN)
+- 英文 (en-US)
+
+## 使用方法
+
+在你的 `Cargo.toml` 中添加:
 
 ```toml
 [dependencies]
 data_structure = "0.1.7"
 ```
 
-Example usage:
+示例代码:
 
 ```rust
 use data_structure::linear::string::String;
 use data_structure::non_linear::graph::AMGraph;
 
 fn main() {
-    // String example
+    // 字符串示例
     let s = String::new(&['H', 'e', 'l', 'l', 'o']);
     let sub = String::new(&['l', 'l']);
-    println!("Match at: {}", s.index_BF(&sub, 0)); // 2
+    println!("匹配位置: {}", s.index_BF(&sub, 0)); // 2
 
-    // Graph example
+    // 图表示例
     let graph: AMGraph<i32, 3> = AMGraph::from_user_input();
-    println!("Graph vertices: {:?}", graph.vexs_get());
+    println!("图顶点: {:?}", graph.vexs_get());
 }
 ```
 
-## Documentation
+## 文档说明
 
-Run `cargo doc --open` to view full documentation.
+运行 `cargo doc --open` 查看完整文档。
