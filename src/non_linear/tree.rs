@@ -31,6 +31,9 @@ where T:Clone,
 		self.right = Some(Box::new(BinaryNode::new(data)));
 		self
 	}
+	pub fn node(&mut self)->&mut Self{
+		self
+	}
 }
 pub struct BinaryTree<T>(Option<Box<BinaryNode<T>>>);
 impl<T: Clone> BinaryTree<T>{
