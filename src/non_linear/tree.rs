@@ -55,6 +55,13 @@ impl<T: Clone> BinaryTree<T>{
 	pub fn if_empty(&self)->bool{
 		self.0.is_none()
 	}
+	pub fn in_order_traverse(&self) -> Vec<&T> {
+		let mut result = Vec::new();
+		if let Some(root) = &self.0 {
+			root._in_order_traverse_ref(&mut result);
+		}
+		result
+	}
 }
 impl<T> Deref for BinaryTree<T>{
 	type Target = Option<Box<BinaryNode<T>>>;
