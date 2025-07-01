@@ -33,7 +33,7 @@ where T:Clone,
 	}
 }
 pub struct BinaryTree<T>(Option<Box<BinaryNode<T>>>);
-impl<T: Copy> BinaryTree<T>{
+impl<T: Clone> BinaryTree<T>{
 	pub fn new() -> BinaryTree<T>{
 		BinaryTree(None)
 	}
