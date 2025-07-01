@@ -34,6 +34,12 @@ where T:Clone,
 	pub fn node(&mut self)->&mut Self{
 		self
 	}
+	pub fn get_data(&self)->&T{
+		&self.data
+	}
+	pub fn mut_data(&mut self)->&mut T{
+		&mut self.data
+	}
 }
 pub struct BinaryTree<T>(Option<Box<BinaryNode<T>>>);
 impl<T: Clone> BinaryTree<T>{
