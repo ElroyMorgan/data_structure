@@ -1,9 +1,9 @@
 use std::ops::{Deref, DerefMut};
 
 pub struct BinaryNode<T>{
-	pub data:T,
-	pub left:Option<Box<BinaryNode<T>>>,
-	pub right:Option<Box<BinaryNode<T>>>,
+	data:T,
+	left:Option<Box<BinaryNode<T>>>,
+	right:Option<Box<BinaryNode<T>>>,
 }
 impl<T> BinaryNode<T>
 where T:Clone,
