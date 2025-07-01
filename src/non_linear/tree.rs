@@ -92,4 +92,48 @@ mod tests{
 			assert_eq!(next2,5)
 		}
 	}
+	#[test]
+	fn test_in_order_traversal() {
+		// 构建测试用的二叉树:
+		//       1
+		//      / \
+		//     2   3
+		//    / \
+		//   4   5
+
+		let mut root = BinaryNode::new(1);
+
+		// 先创建左子节点2
+		root.left_mut(2);
+
+		// 在左子节点2上添加左子节点4和右子节点5
+		if let Some(left) = &mut root.left {
+			left.left_mut(4);
+			left.right_mut(5);
+		}
+
+		// 创建右子节点3
+		root.right_mut(3);
+
+		let mut tree = BinaryTree::with_root(1);
+		tree.set_root(root);
+
+		// 测试中序遍历
+		let traversal = tree.in_order_traverse();
+		assert_eq!(traversal, vec![&4, &2, &5, &1, &3]);
+	}
+
+	#[test]
+	fn test_empty_tree_traversal() {
+		let empty_tree = BinaryTree::<i32>::new();
+		let traversal = empty_tree.in_order_traverse();
+		assert!(traversal.is_empty());
+	}
+
+	#[test]
+	fn test_single_node_traversal() {
+		let tree = BinaryTree::with_root(42);
+		let traversal = tree.in_order_traverse();
+		assert_eq!(traversal, vec![&42]);
+	}
 }
