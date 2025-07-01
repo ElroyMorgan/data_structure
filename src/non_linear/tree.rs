@@ -129,8 +129,8 @@ mod tests{
 
 		// 在左子节点2上添加左子节点4和右子节点5
 		if let Some(left) = &mut root.left {
-			left.left_mut(4);
-			left.right_mut(5);
+			left.left_mut(4).right_mut(5);
+			//left.right_mut(5);
 		}
 
 		// 创建右子节点3
