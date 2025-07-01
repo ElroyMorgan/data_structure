@@ -40,6 +40,20 @@ where T:Clone,
 	pub fn mut_data(&mut self)->&mut T{
 		&mut self.data
 	}
+	fn _in_order_traverse_ref<'a>(&'a self,result:&mut Vec<&'a T>){
+		if let Some(left)=&self.left {
+			left._in_order_traverse_ref(result);
+		}
+		result.push(self.get_data());
+		if let Some(right) = &self.right {
+			right._in_order_traverse_ref(result);
+		}
+	}
+	pub fn in_order_traverse_mut(&self)->Vec<&T>{
+		let mut result=Vec::new();
+		self._in_order_traverse_ref(&mut result);
+		result
+	}
 }
 pub struct BinaryTree<T>(Option<Box<BinaryNode<T>>>);
 impl<T: Clone> BinaryTree<T>{
