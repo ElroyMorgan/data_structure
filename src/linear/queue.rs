@@ -1,33 +1,32 @@
 //! # 队列模块
-//! **此模块我用了AI进行修改，由于我对rust并没有学习到这些较为复杂的内容。**
+//! **此模块我用了AI进行修改，由于我对rust并没有学习到这些较为复杂的内容:`MaybeUninit`,`ptr`**
+//! 
 //! 本模块实现了基于数组的循环队列结构，提供先进先出(FIFO)的数据存储与访问能力。
 //! 
 //! ## 示例
 //! ```
 //! use data_structure::linear::queue::Queue;
 //! 
-//! // 创建一个容量为3的整数队列
+//! // 创建一个容量为3的整数队列(实际可存储2个元素)
 //! let mut queue: Queue<i32, 3> = Queue::new();
 //! 
 //! // 向队列中添加元素
-//! queue.push(1).unwrap();
-//! queue.push(2).unwrap();
-//! queue.push(3).unwrap();
+//! assert!(queue.push(1).is_ok());
+//! assert!(queue.push(2).is_ok());
 //! 
 //! // 队列已满时尝试添加新元素会返回错误
-//! assert!(queue.push(4).is_err());
+//! assert!(queue.push(3).is_err());
 //! 
 //! // 从队列中移除元素
 //! assert_eq!(queue.pop(), Some(1));
 //! assert_eq!(queue.pop(), Some(2));
 //! 
 //! // 添加一个新元素后检查队列是否非空
-//! queue.push(4).unwrap();
+//! assert!(queue.push(3).is_ok());
 //! assert!(!queue.is_empty());
 //! 
 //! // 移除所有元素后队列应为空
 //! assert_eq!(queue.pop(), Some(3));
-//! assert_eq!(queue.pop(), Some(4));
 //! assert!(queue.pop().is_none());
 //! assert!(queue.is_empty());
 //! ```

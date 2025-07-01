@@ -8,7 +8,7 @@
 /// 
 /// # 示例
 /// ```
-/// use data_structure::linear::graph::AMGraph;
+/// use data_structure::non_linear::graph::AMGraph;
 /// 
 /// let graph: AMGraph<i32, 3> = AMGraph::from_user_input();
 /// println!("顶点: {:?}", graph.vexs_get());
@@ -58,7 +58,7 @@ where
     /// 
     /// # 示例
     /// ```
-    /// use data_structure::linear::graph::AMGraph;
+    /// use data_structure::non_linear::graph::AMGraph;
     /// 
     /// let graph = AMGraph::<i32, 3>::from_user_input();
     /// ```

@@ -26,7 +26,7 @@
 
 ```toml
 [dependencies]
-data_structure = "0.1.7"
+data_structure = "0.1.9"
 ```
 
 示例代码:

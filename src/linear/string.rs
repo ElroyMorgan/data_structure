@@ -70,6 +70,82 @@ impl<'a> String<'a> {
     }
 }
 
+fn next<T>(pattern: &[T]) -> Vec<usize>
+where
+    T: PartialEq + Eq,
+{
+    let mut next = vec![0; pattern.len()];
+    if pattern.is_empty() {
+        return next;
+    }
+
+    next[0] = 0;
+    let mut i = 1;
+    let mut j = 0;
+
+    while i < pattern.len() {
+        if pattern[i] == pattern[j] {
+            j += 1;
+            next[i] = j;
+            i += 1;
+        } else if j == 0 {
+            next[i] = 0;
+            i += 1;
+        } else {
+            j = next[j - 1];
+        }
+    }
+
+    next
+}
+
+/// KMP算法实现字符串匹配
+///
+/// # 参数
+/// - `main`: 主串
+/// - `pattern`: 模式串
+///
+/// # 返回值
+/// 返回匹配位置的索引(Some(usize))，如果未找到返回None
+///
+/// # 示例
+/// ```
+/// use data_structure::linear::string::index_KMP;
+/// 
+/// // 能找到子串的情况
+/// assert_eq!(index_KMP(&['a','b','c','d','e'], &['c','d']), Some(2));
+/// 
+/// // 找不到子串的情况
+/// assert_eq!(index_KMP(&['a','b','c'], &['x','y','z']), None);
+/// 
+/// // 空模式串的情况
+/// assert_eq!(index_KMP(&['a','b','c'], &[]), Some(0));
+/// ```
+#[allow(non_snake_case)]
+pub fn index_KMP<T>(main:&[T],pattern:&[T])->Option<usize>
+where T:PartialEq+Eq,
+{
+    if pattern.is_empty(){
+        return Some(0);
+    }
+    let next=next(pattern);
+    let mut i=0usize;
+    let mut j=0usize;
+    while i<main.len() && j<pattern.len() {
+        if j==0 || main[i]==pattern[j] {
+            i+=1;
+            j+=1;
+        }else {
+            j=next[j-1];
+        }
+    }
+    if j==pattern.len() {
+        Some(i-j)
+    }else {
+        None
+    }
+}
+
 #[cfg(test)]
 mod test{
     use crate::linear::string;
@@ -89,5 +165,26 @@ mod test{
         // 测试从指定位置开始查找
         let s2_clone = s2.clone();
         assert_eq!(s1.index_BF(&s2_clone, 6), 0);
+    }
+
+    #[test]
+    fn test_index_kmp() {
+        // 测试能找到子串的情况
+        assert_eq!(
+            string::index_KMP(&['a','b','a','b','c','a','b','c','a','c','b','a','b'], &['a','b','c','a','c']),
+            Some(5)
+        );
+        
+        // 测试找不到子串的情况
+        assert_eq!(
+            string::index_KMP(&['a','b','c'], &['x','y','z']),
+            None
+        );
+        
+        // 测试空模式串
+        assert_eq!(
+            string::index_KMP(&['a','b','c'], &[]),
+            Some(0)
+        );
     }
 }
