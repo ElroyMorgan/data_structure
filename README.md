@@ -1,53 +1,55 @@
-# 数据结构库
+# data_structure
 
-> **警告**: 二叉树中代码出现一定的混乱，没事实现真正的链式调用。
-> 
-> left()和left_mut()的实现逻辑相同（仅设置左子节点），但返回类型不同（&Self vs &mut Self）。 
-> 
-> 当前left_mut返回&mut Self（当前节点的引用），而非子节点的引用。
-> 
->用户无法通过链式调用操作子节点的子节点（如node.left_mut(2).left_mut(4)）。
-> 
-一个用 Rust 实现的常用数据结构和算法库。
+`data_structure` 是一个用 Rust 实现的常用数据结构和算法库，提供高性能、类型安全的实现。
 
 ## 功能特性
 
-- 线性数据结构:
-  - 数组列表
-  - 链表
-  - 栈
-  - 字符串（包含 BF 模式匹配）
-  - 图（邻接矩阵）
-- 排序算法:
-  - 快速排序
+### 线性数据结构:
+- 数组列表 (`linear::array::ArrayList`)
+- 链表 (`linear::list_node::ListNode`)
+- 栈 (`linear::stack::SequentialStack`)
+- 队列 (`linear::queue::Queue`)
+- 字符串（包含 BF 和 KMP 模式匹配）(`linear::string::String`)
+
+### 非线性数据结构:
+- 图（邻接矩阵）(`non_linear::graph::AMGraph`)
+- 树（二叉树）(`non_linear::tree::{BinaryNode, BinaryTree}`)
+
+### 排序算法:
+- 快速排序 (`sorting::quick`)
 
 ## 使用方法
 
-在你的 `Cargo.toml` 中添加:
-
+在 `Cargo.toml` 中添加依赖：
 ```toml
 [dependencies]
 data_structure = "0.1.12"
 ```
 
-示例代码:
+### 示例代码
+```
+// 数组列表示例
+use data_structure::linear::array::ArrayList;
+let mut arr = ArrayList::new();
+arr.insert(1, 42).unwrap();
 
-```rust
-use data_structure::linear::string::String;
-use data_structure::non_linear::graph::AMGraph;
+// 链表示例
+use data_structure::linear::list_node::ListNode;
+let mut list = ListNode::new();
+list.push(1).push(2);
 
-fn main() {
-    // 字符串示例
-    let s = String::new(&['H', 'e', 'l', 'l', 'o']);
-    let sub = String::new(&['l', 'l']);
-    println!("匹配位置: {}", s.index_BF(&sub, 0)); // 2
-
-    // 图表示例
-    let graph: AMGraph<i32, 3> = AMGraph::from_user_input();
-    println!("图顶点: {:?}", graph.vexs_get());
-}
+// 快速排序示例
+use data_structure::sorting::quick;
+let mut nums = [5,3,1,4,2];
+quick(&mut nums, 0, 4);
 ```
 
-## 文档说明
+## 开发状态
+- **稳定功能**: 数组列表、链表、栈、队列、字符串匹配算法、快速排序
+- **实验功能**: 二叉树(链式调用限制)、图结构(固定顶点数)
 
-运行 `cargo doc --open` 查看完整文档。
+## 文档说明
+运行以下命令查看完整API文档:
+```bash
+cargo doc --open
+```
