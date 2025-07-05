@@ -26,7 +26,7 @@
 在 `Cargo.toml` 中添加依赖：
 ```toml
 [dependencies]
-data_structure = "0.1.12"
+data_structure = "0.1.13"
 ```
 
 ### 示例代码
