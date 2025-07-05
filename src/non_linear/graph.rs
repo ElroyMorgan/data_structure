@@ -7,7 +7,7 @@
 /// - `N`: 图的顶点数量，编译时常量
 /// 
 /// # 示例
-/// ```
+/// ```text
 /// use data_structure::non_linear::graph::AMGraph;
 /// 
 /// let graph: AMGraph<i32, 3> = AMGraph::from_user_input();
@@ -57,10 +57,10 @@ where
     /// 从用户输入创建图
     /// 
     /// # 示例
-    /// ```
-    /// use data_structure::non_linear::graph::AMGraph;
+    /// ```text
+    ///  use data_structure::non_linear::graph::AMGraph;
     /// 
-    /// let graph = AMGraph::<i32, 3>::from_user_input();
+    ///  let graph = AMGraph::<i32, 3>::from_user_input();
     /// ```
     pub fn from_user_input() -> Self {
         let mut vexs: [T; N] = [Default::default(); N];

@@ -281,4 +281,12 @@ mod tests{
         let traversal = tree.in_order_traverse();
         assert_eq!(traversal, vec![&42]);
     }
+    #[test]
+    fn test_next_node(){
+        let mut tree=BinaryTree::new();
+        tree.set_root(BinaryNode::new(1));
+        let node=tree.0.as_mut().unwrap().left_mut(2).next_left_node();
+        assert_eq!(node, Some(&mut BinaryNode::new(2)));
+        println!("{:?}",tree);
+    }
 }
