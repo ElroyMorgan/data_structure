@@ -1,7 +1,7 @@
 use std::ops::{Deref, DerefMut};
 
 /// 二叉树节点结构体
-#[derive(Clone,Debug)]
+#[derive(Clone,Debug,PartialEq,Eq)]
 pub struct BinaryNode<T>{
     pub data:T,
     left:Option<Box<BinaryNode<T>>>,
@@ -80,7 +80,31 @@ where T:Clone,
     pub fn node(&mut self)->&mut Self{
         self
     }
-    
+
+    /// 获取下一个左节点的可变引用
+    /// 
+    /// # 返回值
+    /// `Option<BinaryNode>`  如果存在，则返回该节点的引用，否则返回None
+    /// >**注意**该函数不是创建节点，
+    pub fn next_left_node(&mut self)->Option<&mut Self>{
+        if let Some(left)=self.left.as_mut(){
+            return Some(left)
+        }
+        None
+    }
+
+    /// 获取下一个右节点的可变引用
+    ///
+    /// # 返回值
+    /// `Option<BinaryNode>`  如果存在，则返回该节点的引用，否则返回None
+    /// >**注意**该函数不是创建节点，
+    pub fn next_right_node(&mut self)->Option<&mut BinaryNode<T>>{
+        if let Some(right)=self.right.as_mut(){
+            return Some(right);
+        }
+        None
+    }
+
     /// 获取节点数据的不可变引用
     ///
     /// # 返回值
