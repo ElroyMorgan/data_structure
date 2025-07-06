@@ -1,6 +1,13 @@
 pub mod linear;
 pub mod sorting;
 pub mod non_linear;
+
+#[derive(Debug)]
+pub enum Err{
+    IndexErr,
+    FullErr,
+}
+
 #[cfg(test)]
 mod tests {
     use crate::linear::array::ArrayList;
