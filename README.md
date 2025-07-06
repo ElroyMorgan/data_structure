@@ -7,8 +7,11 @@
 
 ## 功能特性
 
+### Err枚举
+
 ### 线性数据结构:
 - 数组列表 (`linear::array::ArrayList`)
+- 静态数组 (`data_structure::linear::array::SqList `)
 - 链表 (`linear::list_node::ListNode`)
 - 栈 (`linear::stack::SequentialStack`)
 - 队列 (`linear::queue::Queue`)
@@ -26,7 +29,7 @@
 在 `Cargo.toml` 中添加依赖：
 ```toml
 [dependencies]
-data_structure = "0.1.13"
+data_structure = "0.1.14"
 ```
 
 ### 示例代码

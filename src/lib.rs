@@ -2,8 +2,14 @@ pub mod linear;
 pub mod sorting;
 pub mod non_linear;
 
+/// 表示数据结构操作中常见的错误类型
+///
+/// # 变体
+///
+/// - `IndexErr` - 索引越界错误，通常发生在访问、插入或删除元素时索引无效
+/// - `FullErr`  - 容器已满错误，通常发生在向固定容量容器插入新元素时超出限制
 #[derive(Debug)]
-pub enum Err{
+pub enum Err {
     IndexErr,
     FullErr,
 }
