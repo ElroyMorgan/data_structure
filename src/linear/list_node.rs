@@ -176,60 +176,6 @@ impl<T> ListNode<T> {
     }
 }
 
-pub mod circular_list {
-    type ElemType=i32;
-    //type LinkList=Box<LNode>;
-    ///带头结点的循环链表结构体
-    pub struct LNode {
-        data: ElemType,
-        next: *mut LNode,
-    }
-    impl LNode{
-//         ```rust
-//         use data_structure::linear::list_node::circular_list;
-//         use data_structure::linear::list_node::circular_list::LNode;
-//         let mut list:LNode;
-//         list.new();
-//         ```
-        pub fn new()->Self{
-            Self{
-                data:0,
-                next: std::ptr::null_mut(),
-            }
-        }
-        pub fn get_data(&self)->ElemType{
-            self.data
-        }
-
-        pub fn init_list(&mut self){
-            // let raw_ptr=self as *mut Self;
-            // let head=Box::into_raw(Box::new(LNode::new()));
-            // unsafe {
-            //     (*head).next=head;
-            // }
-        }
-    }
-    ///```rust
-    ///use data_structure::linear::list_node::circular_list;
-    ///use data_structure::linear::list_node::circular_list::{init_list, LNode};
-    ///let mut list:*mut LNode=std::ptr::null_mut();
-    /// unsafe {init_list(&mut list);}
-    ///```
-    pub unsafe fn init_list(list:&mut *mut LNode)->bool{
-        *list=Box::into_raw(Box::new(LNode::new()));
-        if (*list).is_null() {
-             false
-        }else {
-            unsafe {
-                (**list).next=*list;
-                true
-            }
-        }
-    }
-
-
-}
-
 #[cfg(test)]
 mod tests {
     use super::ListNode;
