@@ -57,5 +57,5 @@ quick(&mut nums, 0, 4);
 ## 文档说明
 运行以下命令查看完整API文档:
 ```bash
-cargo doc --open
+    cargo doc --open
 ```
