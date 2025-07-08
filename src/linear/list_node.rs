@@ -175,7 +175,6 @@ impl<T> ListNode<T> {
         count
     }
 }
-
 pub mod circular_list {
     type ElemType=i32;
     //type LinkList=Box<LNode>;
@@ -185,12 +184,12 @@ pub mod circular_list {
         next: *mut LNode,
     }
     impl LNode{
-//         ```rust
-//         use data_structure::linear::list_node::circular_list;
-//         use data_structure::linear::list_node::circular_list::LNode;
-//         let mut list:LNode;
-//         list.new();
-//         ```
+        //         ```rust
+        //         use data_structure::linear::list_node::circular_list;
+        //         use data_structure::linear::list_node::circular_list::LNode;
+        //         let mut list:LNode;
+        //         list.new();
+        //         ```
         pub fn new()->Self{
             Self{
                 data:0,
@@ -218,7 +217,7 @@ pub mod circular_list {
     pub unsafe fn init_list(list:&mut *mut LNode)->bool{
         *list=Box::into_raw(Box::new(LNode::new()));
         if (*list).is_null() {
-             false
+            false
         }else {
             unsafe {
                 (**list).next=*list;
@@ -229,7 +228,6 @@ pub mod circular_list {
 
 
 }
-
 #[cfg(test)]
 mod tests {
     use super::ListNode;
