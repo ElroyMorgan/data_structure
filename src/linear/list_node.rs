@@ -175,10 +175,178 @@ impl<T> ListNode<T> {
         count
     }
 }
+pub mod circular_list {
+    use std::mem::swap;
 
+    type ElemType=i32;
+    //type LinkList=Box<LNode>;
+    ///带头结点的单链表结构体
+    pub struct LNode {
+        pub data: ElemType,
+        pub next: *mut LNode,
+    }
+    ///```rust
+    ///use data_structure::linear::list_node::circular_list;
+    ///use data_structure::linear::list_node::circular_list::{init_list, LNode};
+    ///let mut list:*mut LNode=std::ptr::null_mut();
+    /// unsafe {init_list(&mut list);}
+    ///```
+    type LinkList=*mut LNode;
+    /// 初始化一个带头节点的单链表
+    ///
+    /// # 参数
+    /// - `list`: 一个指向链表头节点的可变引用指针
+    ///
+    /// # 返回值
+    /// 如果初始化成功返回 `true`，否则返回 `false`
+    ///
+    /// # 示例
+    /// ```rust
+    /// use data_structure::linear::list_node::circular_list::{init_list, LNode};
+    /// let mut list: *mut LNode = std::ptr::null_mut();
+    /// unsafe {
+    ///     assert!(init_list(&mut list));
+    ///     assert!(!list.is_null());
+    ///     assert_eq!((*list).data, 0);
+    /// }
+    /// ```
+    pub unsafe fn init_list(list:&mut *mut LNode)->bool{
+        *list=Box::into_raw(Box::new(LNode{
+            data:0,
+            next:std::ptr::null_mut(),
+        }));
+        if (*list).is_null() {
+            false
+        }else {
+            unsafe {
+                (**list).next= std::ptr::null_mut();
+                true
+            }
+        }
+    }
+    /// 在循环链表中插入一个新节点
+    ///
+    /// # 参数
+    /// - `list`: 一个指向链表头节点的可变引用指针
+    /// - `i`: 插入位置的索引（从1开始）
+    /// - `e`: 要插入的数据
+    ///
+    /// # 返回值
+    /// 如果插入成功返回 `true`，否则返回 `false`
+    ///
+    /// # 示例
+    /// ```rust
+    /// use data_structure::linear::list_node::circular_list::{init_list, list_insert, LNode};
+    /// let mut list: *mut LNode = std::ptr::null_mut();
+    /// unsafe {
+    ///     init_list(&mut list);
+    ///     assert!(list_insert(&mut list, 1, 42));
+    ///     assert_eq!((*(*list).next).data, 42);
+    /// }
+    /// ```
+    pub fn list_insert(list: &mut LinkList, i:usize, e:ElemType) ->bool{
+        let node=Box::into_raw(Box::new(LNode{
+            data:e,
+            next:std::ptr::null_mut(),
+        }));
+        if i==0{ return false; }
+        let mut current=*list;
+        for _ in 0..i-1 {
+          unsafe {
+              current=(*current).next;
+          }
+        }
+        unsafe {
+            (*node).next=(*current).next;
+            (*current).next=node;
+        }
+        true
+    }
+    /// 删除循环链表中的指定节点
+    ///
+    /// # 参数
+    /// - `list`: 一个指向链表头节点的可变引用指针
+    /// - `i`: 要删除节点的位置索引（从1开始）
+    ///
+    /// # 返回值
+    /// 返回被删除的节点包装在 `Box` 中
+    ///
+    /// # 示例
+    /// ```rust
+    /// use data_structure::linear::list_node::circular_list::{init_list, list_insert, delete, LNode};
+    /// let mut list: *mut LNode = std::ptr::null_mut();
+    /// unsafe {
+    ///     init_list(&mut list);
+    ///     list_insert(&mut list, 1, 10);
+    ///     list_insert(&mut list, 2, 20);
+    ///     let deleted_node = delete(&mut list, 1);
+    ///     assert_eq!(deleted_node.data, 10);
+    ///     assert_eq!((*(*list).next).data, 20);
+    /// }
+    /// ```
+    pub fn delete(list:&mut LinkList,i:usize)->Box<LNode>{
+        let mut current=*list;
+        for _ in 0..i {
+            unsafe {
+                if current.is_null() {
+                    panic!("Index out of bounds");
+                }
+                current=(*current).next;
+            }
+        }
+        unsafe {
+            if current.is_null() || (*current).next.is_null() {
+                panic!("Invalid node to delete (null or last node)");
+            }
+            swap(&mut (*current).data,&mut (*(*current).next).data);
+            let value=Box::from_raw((*current).next);
+            // value.next= std::ptr::null_mut();
+            (*current).next=(*(*current).next).next;
+            value
+        }
+    }
+
+}
 #[cfg(test)]
 mod tests {
-    use super::ListNode;
+    use super::{ListNode, circular_list::{init_list, list_insert, delete, LNode}};
+
+    #[test]
+    fn test_init_list() {
+        let mut list: *mut LNode = std::ptr::null_mut();
+        unsafe {
+            assert!(init_list(&mut list));
+            assert!(!list.is_null());
+            assert_eq!((*list).data,0);
+            assert_eq!((*list).next, std::ptr::null_mut());
+        }
+    }
+
+    #[test]
+    fn test_list_insert() {
+        let mut list: *mut LNode = std::ptr::null_mut();
+        unsafe {
+            init_list(&mut list);
+            assert!(list_insert(&mut list, 1, 42));
+            assert_eq!((*(*list).next).data, 42);
+        }
+    }
+
+    #[test]
+    fn test_delete() {
+        let mut list: *mut LNode = std::ptr::null_mut();
+        unsafe {
+            init_list(&mut list);
+            list_insert(&mut list, 1, 10);
+            list_insert(&mut list, 2, 20);
+            list_insert(&mut list, 3, 30);
+
+            let deleted_node = delete(&mut list, 1);
+            assert_eq!(deleted_node.data, 10);
+            assert_eq!((*(*list).next).data, 20);
+        }
+    }
+
     #[test]
     fn test_sentinel_head() {
         let mut head: Box<ListNode<i32>> = Box::new(ListNode::new());
