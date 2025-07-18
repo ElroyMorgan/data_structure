@@ -13,7 +13,7 @@
 - 数组列表 (`linear::array::ArrayList`)
 - 静态数组 (`data_structure::linear::array::SqList `)
 - 链表 (`linear::list_node::ListNode`)
-- **circular_list**:目前此模块暂不支持循环链表
+<!-- - **circular_list**:目前此模块暂不支持循环链表 -->
 - 栈 (`linear::stack::SequentialStack`)
 - 队列 (`linear::queue::Queue`)
 - 字符串（包含 BF 和 KMP 模式匹配）(`linear::string::String`)
