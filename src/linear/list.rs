@@ -1,34 +1,53 @@
- pub mod enum_linklist{
+/// A module implementing a singly linked list using enum-based nodes.
+/// 
+/// Provides basic operations like push, pop, insert and delete.
+pub mod enum_linklist{
+        /// A node in the linked list containing an element and a link to the next node.
         #[derive(Debug)]
         pub struct Node{
+            /// The element stored in this node
             elem:i32,
+            /// Link to the next node in the list
             next:Link,
         }
 
         impl Node{
+            /// Returns a reference to the element in this node
             pub fn elem_ref(&self)->&i32{
                 &self.elem
             }
+            /// Returns a mutable reference to the element in this node
             pub fn elem_mut(&mut self)->&mut i32{
                 &mut self.elem
             }
+            /// Returns the element value in this node
             pub fn elem(&self)->i32{
                 self.elem
             }
         }
+        /// Represents a link to another node or the end of the list
         #[derive(Debug)]
         pub enum Link{
+            /// Represents the end of the list
             Null,
+            /// Contains a boxed node pointing to the next element
             More(Box<Node>),
         }
+        /// A singly linked list implementation using enum-based nodes
         #[derive(Debug)]
         pub struct List{
+            /// The head of the linked list
             head:Link
         }
         impl List{
+            /// Creates a new empty linked list
             pub fn new() -> Self {
-                List { head: Link::Null } // 修复1: 初始化为空链表
+                List { head: Link::Null }
             }
+            /// Pushes an element onto the front of the list
+            /// 
+            /// # Arguments
+            /// * `elem` - The element to add to the list
             pub fn push(&mut self,elem:i32){
                 let new_node=Box::new(Node{
                     elem,
@@ -36,6 +55,9 @@
                 });
                 self.head=Link::More(new_node);
             }
+            /// Removes and returns the first element of the list, if any
+            /// 
+            /// Returns `None` if the list is empty
             pub fn pop(&mut self)->Option<i32>{
                 match std::mem::replace(&mut self.head,Link::Null) {
                     Link::Null=>None,
@@ -45,6 +67,17 @@
                     }
                 }
             }
+            /// Inserts an element at the specified position in the list
+            /// 
+            /// # Arguments
+            /// * `i` - 1-based index where to insert the element
+            /// * `elem` - The element to insert
+            /// 
+            /// # Returns
+            /// `true` if insertion was successful, `false` if index is invalid
+            /// 
+            /// # Panics
+            /// Does not panic but returns false for invalid indices
             pub fn insert(&mut self,i:usize,elem:i32)->bool{
                 if i<1 { return false; }
                 let mut current=&mut self.head;
@@ -65,6 +98,13 @@
                 }));
                 true
             }
+            /// Deletes the element at the specified position in the list
+            /// 
+            /// # Arguments
+            /// * `i` - 1-based index of the element to remove
+            /// 
+            /// # Returns
+            /// `true` if deletion was successful, `false` if index is invalid
             pub fn delete(&mut self, i: usize) -> bool {
                 if i < 1 {
                     return false;
@@ -80,7 +120,6 @@
                 let mut current = &mut self.head;
                 for _ in 0..i-2 {
                     match current {
-                        //Link::More(ref mut node) => current = &mut node.next,
                         Link::More(node) => current = &mut node.next,
                         Link::Null => return false,
                     }
@@ -98,7 +137,6 @@
                     Link::Null => false,
                 }
             }
-
         }
     }
  #[cfg(test)]
