@@ -4,7 +4,7 @@ pub mod stack;
 pub mod string;
 pub mod queue;
 pub mod list;
-
+pub mod list_raw;
 /// **此trait中所有关于位置的返回值都是位序，即从1开始，而非0开始，如果返回为0表示失败或者无效。**
 pub trait List<T>
 where T: Clone

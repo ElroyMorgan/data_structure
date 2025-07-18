@@ -17,7 +17,8 @@
 - 栈 (`linear::stack::SequentialStack`)
 - 队列 (`linear::queue::Queue`)
 - 字符串（包含 BF 和 KMP 模式匹配）(`linear::string::String`)
-
+- 新增enum_linklist模块：采用枚举和box创建
+- 新增list_raw模块，采用裸指针创建，目前只实现了new，insert函数，以及drop trait（尚未测试此模块）。
 ### 非线性数据结构:
 - 图（邻接矩阵）(`non_linear::graph::AMGraph`)
 - 树（二叉树）(`non_linear::tree::{BinaryNode, BinaryTree}`)
@@ -30,7 +31,7 @@
 在 `Cargo.toml` 中添加依赖：
 ```toml
 [dependencies]
-data_structure = "0.1.16"
+data_structure = "0.1.17"
 ```
 
 ### 示例代码
