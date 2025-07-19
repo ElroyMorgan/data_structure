@@ -101,8 +101,47 @@ impl NodeRaw {
         };
         Some(del)
     }
+    pub fn get_ref(&mut self,i:isize)->Option<&i32>{
+        if i<1 {
+            return None
+        }
+        let mut current=&raw mut *self;
+        for _ in 0..i {
+            unsafe {
+                if current.is_null() {
+                    return None;
+                }
+                current =(*current).next;
+            }
+        }
+        unsafe {
+            if current.is_null() {
+                return None;
+            }
+            let curr=&(*current).data;
+            Some(curr)
+        }
+    }
+    pub fn insert_next_node(node:*mut NodeRaw,e:i32)->Result<(),LinkErr> {
+        if node.is_null() {
+                return Err(LinkErr::Node);
+            }
+        let new_node=Box::into_raw(Box::new(NodeRaw{
+            data:e,
+            next:std::ptr::null_mut(),
+        }));
+        unsafe {
+            (*new_node).next=(*node).next;
+            (*node).next=new_node;
+        }
+        Ok(())
+    }
 }
-
+#[derive(Debug)]
+pub enum LinkErr {
+    Node,
+    Index,
+}
 /// 测试模块
 #[cfg(test)]
 mod tests {
@@ -166,6 +205,33 @@ mod tests {
         let mut list = NodeRaw::new();
         assert!(list.delete(0).is_none());
         assert!(list.delete(2).is_none());
+    }
+
+    /// 测试获取节点引用
+    #[test]
+    fn test_get_ref() {
+        let mut list = NodeRaw::new();
+        list.insert(1, 10).unwrap();
+        list.insert(2, 20).unwrap();
+        list.insert(3, 30).unwrap();
+
+        // 测试获取第一个节点
+        let first = list.get_ref(1).unwrap();
+        assert_eq!(*first, 10);
+
+        // 测试获取第二个节点
+        let second = list.get_ref(2).unwrap();
+        assert_eq!(*second, 20);
+
+        // 测试获取第三个节点
+        let third = list.get_ref(3).unwrap();
+        assert_eq!(*third, 30);
+
+        // 测试获取超出链表长度的位置
+        assert!(list.get_ref(4).is_none());
+
+        // 测试获取位置小于1的情况
+        assert!(list.get_ref(0).is_none());
     }
 }
 
