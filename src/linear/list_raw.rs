@@ -121,7 +121,32 @@ impl NodeRaw {
             let curr=&(*current).data;
             Some(curr)
         }
+        
     }
+    
+    pub fn get_mut(&mut self,i:isize)->Option<&mut i32>{
+        if i<1 {
+            return None
+        }
+        let mut current=&raw mut *self;
+        for _ in 0..i {
+            unsafe {
+                if current.is_null() {
+                    return None;
+                }
+                current =(*current).next;
+            }
+        }
+        unsafe {
+            if current.is_null() {
+                return None;
+            }
+            let curr=&mut (*current).data;
+            Some(curr)
+        }
+        
+    }
+
     pub fn insert_next_node(node:*mut NodeRaw,e:i32)->Result<(),LinkErr> {
         if node.is_null() {
                 return Err(LinkErr::Node);
