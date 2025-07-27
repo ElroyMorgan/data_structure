@@ -1,6 +1,7 @@
 pub mod array;
 pub mod list_node;
 pub mod stack;
+pub mod stack_raw;
 pub mod string;
 pub mod queue;
 pub mod list;
