@@ -1,6 +1,7 @@
 pub mod linear;
 pub mod sorting;
 pub mod non_linear;
+pub mod stack;
 
 /// 表示数据结构操作中常见的错误类型
 ///
